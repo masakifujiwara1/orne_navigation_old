@@ -8,6 +8,7 @@
   <xacro:include filename="$(find orne_description)/urdf/material_colors.xacro"/>
   <xacro:include filename="$(find orne_description)/urdf/gamma/orne_gamma.gazebo"/>
   <xacro:include filename="$(find orne_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+  <xacro:include filename="$(find orne_description)/urdf/gamma/orne_gamma_caster_fix.urdf.xacro"/>
 
   <!--Base Footprint-->
   <link name="base_footprint" />
@@ -36,7 +37,7 @@
       </geometry>
     </collision>
 
-     <collision name="collision">
+     <!-- <collision name="collision">
       <origin xyz="0.15 0.0 -0.075" rpy="1.57 0.0 0.0"/>
       <geometry>
         <cylinder  length="0.03" radius="0.04625"/>
@@ -47,7 +48,7 @@
       <geometry>
         <cylinder  length="0.03" radius="0.04625"/>
       </geometry>
-    </visual>
+    </visual> -->
 
     <!-- <inertial>
       <mass value="20" />
@@ -57,7 +58,8 @@
    <inertial>
     <mass value="15" />
     <origin xyz="0 0 0" rpy="0 0 0"/>
-    <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    <!-- <inertia ixx="0.5" ixy="0" ixz="0" iyy="0.5" iyz="0" izz="0.5" /> -->
+    <inertia ixx="0.25925" ixy="0" ixz="0" iyy="0.32216" iyz="0" izz="0.52516" />
     </inertial>
  </link>
 
@@ -117,7 +119,7 @@
     <inertial>
       <mass value="1" />
       <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/>
-      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.001" />
     </inertial>
   </link>
   
@@ -128,6 +130,7 @@
     <parent link="base_link"></parent>
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100.0"  lower="-5000" upper="5000" />
+    <dynamics damping="0.1"/>
   </joint> 
 
   <!--link name="visual_right_wheel">
@@ -163,7 +166,7 @@
     <inertial>
       <mass value="1" />
        <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/>
-      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.001" />
     </inertial>
   </link>
   
@@ -175,11 +178,16 @@
     <parent link="base_link"></parent>
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100.0"  lower="-5000" upper="5000" />
+    <dynamics damping="0.1"/>
   </joint>
 
   <xacro:sensor_hokuyo name="hokuyo" parent="base_link" size="0.05 0.05 0.05">
     <origin xyz="0.25 0 0.1" rpy="0 0 0"/>
   </xacro:sensor_hokuyo>
+
+  <xacro:caster sub="0" parent="base_link" transX="0.15" transY="0.0" transZ="-0.075" />
+    <!-- <origin xyz="0.25 0 0.1" rpy="0 0 0"/> -->
+  <!-- </xacro:caster> -->
 
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>

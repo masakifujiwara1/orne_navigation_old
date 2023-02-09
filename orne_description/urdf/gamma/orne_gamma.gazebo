@@ -26,7 +26,7 @@
       <leftJoint>left_wheel_joint</leftJoint>
       <rightJoint>right_wheel_joint</rightJoint>
       <wheelSeparation>0.4615</wheelSeparation>
-      <wheelDiameter>0.304</wheelDiameter>
+      <wheelDiameter>0.145</wheelDiameter>
       <wheelAcceleration>1</wheelAcceleration>
       <wheelTorque>10</wheelTorque>
       <rosDebugLevel>na</rosDebugLevel>
@@ -40,6 +40,8 @@
 
   <!-- Left Wheel -->
   <gazebo reference="left_wheel">
+    <!-- <mu1>2.5</mu1>
+    <mu2>2.5</mu2> -->
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
     <kp>1000000.0</kp>
@@ -52,6 +54,8 @@
 
   <!-- Right Wheel -->
   <gazebo reference="right_wheel">
+    <!-- <mu1>2.5</mu1>
+    <mu2>2.5</mu2> -->
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
     <kp>1000000.0</kp>
