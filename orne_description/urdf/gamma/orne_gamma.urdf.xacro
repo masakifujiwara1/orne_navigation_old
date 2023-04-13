@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- Revolute-Revolute Manipulator -->
-<robot name="orne_gamma" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+<robot name="orne_gamma" xmlns:xacro="http://ros.org/wiki/xacro"> 
   <!-- Constants for robot dimensions -->
   <xacro:property name="PI" value="3.1415926535897931"/>
 
@@ -106,19 +106,24 @@
   <link name="left_wheel">
     <collision name="collision">
       <!-- <origin xyz="0 0.0 -0.10" rpy="0 1.5707 1.5707"/> -->
+      <!-- <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/> -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
          <cylinder  length="0.03" radius="0.0725"/>
       </geometry>
     </collision>
     <visual name="visual">
       <!-- <origin xyz="0 0.0 -0.10" rpy="0 0 0"/> -->
+      <!-- <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/> -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <cylinder  length="0.03" radius="0.0725"/>
       </geometry>
     </visual>
     <inertial>
       <mass value="1" />
-      <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/>
+      <!-- <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/> -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.001" />
     </inertial>
   </link>
@@ -151,6 +156,8 @@
   
   <link name="right_wheel">
     <collision name="collision">
+      <!-- <origin xyz="-0.15 -0.15 -0.05" rpy="-1.57 0.0 0.0"/> -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <!-- <origin xyz="0 0.0 -0.10" rpy="0 1.5707 1.5707"/> -->
       <!-- <origin xyz="0 0.15 -0.05" rpy="1.57 0 0"/> -->
       <geometry>
@@ -159,13 +166,16 @@
     </collision>
     <visual name="visual">
       <!-- <origin xyz="0 0.0 -0.10" rpy="0 1.5707 1.5707"/> -->
+      <!-- <origin xyz="-0.15 -0.15 -0.05" rpy="-1.57 0.0 0.0"/> -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <cylinder  length="0.03" radius="0.0725"/>
       </geometry>
     </visual>
     <inertial>
       <mass value="1" />
-       <origin xyz="-0.15 0.15 -0.05" rpy="-1.57 0.0 0.0"/>
+      <!-- <origin xyz="-0.15 -0.15 -0.05" rpy="-1.57 0.0 0.0"/> -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.001" />
     </inertial>
   </link>
@@ -210,4 +220,62 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.223 -0.011 0.565" rpy="0 0.124 0"/> 
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.030 0.027"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_rgb_joint" type="fixed">
+    <origin xyz="0.003 0.011 0.009" rpy="0 0 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_rgb_frame"/>
+  </joint>
+  <link name="camera_rgb_frame"/>
+
+  <joint name="camera_rgb_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+    <parent link="camera_rgb_frame"/>
+    <child link="camera_rgb_optical_frame"/>
+  </joint>
+  <link name="camera_rgb_optical_frame"/>
+
+  <joint name="camera_rgb_left_joint" type="fixed">
+    <origin xyz="0.003 0.111 0.009" rpy="0 0 0.175"/>
+    <parent link="camera_link"/>
+    <child link="camera_rgb_left_frame"/>
+  </joint>
+  <link name="camera_rgb_left_frame"/>
+
+  <joint name="camera_rgb_optical_left_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+    <parent link="camera_rgb_left_frame"/>
+    <child link="camera_rgb_optical_left_frame"/>
+  </joint>
+  <link name="camera_rgb_optical_left_frame"/>
+
+  <joint name="camera_rgb_right_joint" type="fixed">
+    <origin xyz="0.003 -0.089 0.009" rpy="0 0 -0.175"/>
+    <parent link="camera_link"/>
+    <child link="camera_rgb_right_frame"/>
+  </joint>
+  <link name="camera_rgb_right_frame"/>
+
+  <joint name="camera_rgb_optical_right_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+    <parent link="camera_rgb_right_frame"/>
+    <child link="camera_rgb_optical_right_frame"/>
+  </joint>
+  <link name="camera_rgb_optical_right_frame"/>
+
 </robot>
